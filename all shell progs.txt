@@ -1,0 +1,772 @@
+sh script.sh
+https://www.shellscript.sh/
+------------------
+
+1.variables
+a=10
+b=20
+echo "a,b is:$a & $b"
+echo "b is:$b"
+
+
+1.1 commanline / passing arguments
+
+a=$1
+b=$2
+echo "a is:$a"
+echo "b is:$b"
+
+--------------------------------------------------------------------------------------------
+2.acceptAndRead
+
+echo "enter a number1:"
+read a
+echo "enter a number2:"
+read b
+echo "a value is:$a"
+echo "b value is:$b"
+
+--------------------------------------------------------------------------------------------
+3.add
+
+
+echo -e "enter a number1:\c"
+read a
+echo -e "enter a number2:\c"
+read b
+c=`expr $a + $b`
+echo "sum of $a and $b is:$c"
+
+
+
+3.1. multiplication
+
+echo -e "enter a number1:\c"
+read a
+echo -e "enter a number2:\c"
+read b
+c=`expr $a \* $b`
+echo "multiple of $a and $b is:$c"
+
+
+---------------------------------------------------------------------------------------------
+4.openfile
+
+
+echo -e "enter a filename to open:"
+read a
+echo "......................"
+cat $a
+echo "......................"
+
+---------------------------------------------------------------------------------------------
+5.deleteBlankLines
+
+
+echo "enter a filename :\c"
+read fn
+grep -v "^$" $fn > temp
+mv temp $fn
+echo "$fn file empty lines deleted"
+
+------------------------------------------------------------------------------------------
+6.deleteDuplicateLines
+
+
+echo "enter a filename:\c"
+read fn
+sort $fn | uniq > temp
+mv temp $fn
+echo "$fn file duplicate lines are deleted"
+
+------------------------------------------------------------------------------------------
+7.positiveNagative
+
+
+echo "enter a number:"
+read n
+if [ $n -ge 0 ]
+then
+	echo "$n is a +ve no."
+else
+	echo "$n is a -ve no."
+fi
+
+--------------------------------------------------------------------------------------------
+8.evenOdd
+
+
+echo -n "enter a number:\c"
+read a
+if [ `expr $a % 2` -eq 0 ]
+then
+	echo "$a number is even"
+else
+	echo "$a number is odd"
+fi
+
+--------------------------------------------------------------------------------------------
+9.stringEqualOrNot
+
+
+echo "enter a string1:\c"
+read str1
+echo "enter a string2:\c"
+read str2
+
+if [ "$str1" == "$str2" ]
+then
+	echo "strings are equal"
+else
+	echo "strings are not equal"
+fi
+
+
+
+
+9.1. two files are same or not
+
+
+echo "enter a file1:\c"
+read file1
+echo "enter a file2:\c"
+read file2
+
+str1=`md5sum $file1 | cut -d' ' -f1`
+str2=`md5sum $file2 | cut -d' ' -f1`
+
+if [ "$str1" = "$str2" ]
+then
+	echo "Both files are same"
+else
+	echo "Both files are not same"
+fi
+--------------------------------------------------------------------------------------------
+10.deleteFile
+
+
+echo "enter a filename to be deleted:\c"
+read fn
+if rm $fn
+then
+	echo "$fn file deleted succfully"
+else
+	echo "$fn file doesnt exist"
+fi
+
+----------------------------------------------------------------------------------------
+11.sunday
+
+x=`date | cut -c 1-3`
+if [ $x = "sun" ]
+then
+	echo "today is sunday"
+else
+	echo "today is $x day"
+fi
+
+--------------------------------------------------------------------------------------------
+12.userExistOrNot
+
+
+echo "enter the user name:\c"
+read un
+if grep -w $un /etc/passwd > /dev/null
+then
+	echo "$un user exist"
+else
+	echo "$un user doesnt exist"
+fi
+
+--------------------------------------------------------------------------------------------
+13.userLoginOrNOt
+
+
+echo "enter user name:\c"
+read un
+if grep -w $un /etc/passwd>/dev/null
+then
+	if who | grep -w $un>/dev/null
+	then
+		echo "$un is loggedin"
+	else
+		echo "$un is not loggedin"
+	fi
+else 
+	echo "$un doesnt exist"
+fi
+
+--------------------------------------------------------------------------------------------
+14.acceptFileAndOpen
+
+
+echo "enter a filename:\c"
+read fn
+if [ -e $fn ]
+then
+	if [ -f $fn ]
+	then
+		if [ -r $fn ]
+		then
+			cat $fn
+		else
+			echo "file doesnt have read permission"
+		fi
+	else
+		echo "$fn is not a file"
+	fi
+else
+	echo "$fn file doesnt exist"
+fi
+
+----------------------------------------------------------------------------------------------
+15.fileOrDirectory 
+
+echo "enter a filename:\c"
+read fn
+if [ -e $fn ]
+then
+	if [ -f $fn ]
+	then
+		echo "$fn is a file"
+	elif [ -d $fn ]
+	then
+		echo "$fn is directory"
+	else
+		echo "$fn is not a file or directory"
+	fi
+else
+	echo "$fn is not exist"
+fi
+
+---------------------------------------------------------------------------------------------
+16.twoFilesSameOrNot
+
+
+echo "enter file file1:\c"
+read f1
+echo "enter file file2:\c"
+read f2
+
+x=`cmp $f1 $f2`
+
+if [ -z "$x" ]
+then
+	echo "files are same"
+else
+	echo "files are not same"
+fi
+
+----------------------------------------------------------------------------------------------
+17.stringEmptyOrNot
+
+
+echo "enter string:\c"
+read str
+if [ -z "$str" ]
+then
+	echo "string is empty"
+else
+	echo "string is not empty"
+fi
+
+----------------------------------------------------------------------------------------------
+18.case
+
+
+echo "enter num bet 1-4:\c"
+read n
+case $n in
+	1)echo "one"
+	  echo "one-1";;
+	2)echo "two-2"
+	  echo "two-2"
+	  echo "two-3";;
+	3)echo "three";;
+	4)echo "four";;
+	*)echo "invalid choice";;
+esac
+
+----------------------------------------------------------------------------------------------
+19.alphabetOrDigitOrSting
+
+
+echo "enter a single character:\c"
+read ch
+case $ch in
+[A-Z])echo "alphabet(upper case)";;
+[0-9])echo "digit";;
+[a-z])echo "alphabet(lower case)";;
+[^a-zA-Z0-9])echo "special character";;
+*)echo "you enter more than one character";;
+esac
+
+
+-----------------------------------------------------------------------------------------------
+20.alphabetOrDigitOrStingConsonent
+
+echo "enter a single character:\c"
+read ch
+case $ch in
+	[^a-zA-Z0-9])echo "special character";;
+	[0-9])echo "digit";;
+	[AEIOUaeiou])echo "vowel";;
+	[^AEIOUaeiou])echo "consonent";;
+	*)echo "you enter more than one character";;
+esac
+
+-----------------------------------------------------------------------------------------------
+21.quarter
+
+
+echo "enter a month:\c"
+read mm
+case $mm in
+	jan | feb | mar)echo "1st quarter";;
+	apr | may | jun)echo "2nd quarter";;
+	jul | aug | sep)echo "3rd quarter";;
+	oct | nov | dec)echo "4th quarter";;
+	*)echo "invalid month";;
+esac
+
+----------------------------------------------------------------------------------------------
+22.menu
+
+
+clear
+tput cup 6 10
+echo "MAINMENU"
+tput cup 7 10
+echo "***************"
+tput cup 8 10
+echo "1.date"
+tput cup 9 10
+echo "2.list of users"
+tput cup 10 10
+echo "3.open a file"
+tput cup 11 10
+echo "4.delete a file"
+tput cup 12 10
+echo "5.exit"
+echo "enter your choice[1-5]:\c"
+read ch
+case $ch in
+1)echo "today date is:"`date`;;
+2)who;;
+3)echo "enter a file name :\c"
+  read fn
+  cat $fn;;
+4)echo "enter a file name:\c"
+  read fn
+  rm $fn;;
+5)echo "thanking you"
+  exit;;
+*)echo "choice wrong.try again";;
+esac
+
+--------------------------------------------------------------------------------------------
+23.while
+
+i=1
+while [ $i -le 10 ]
+do
+	echo $i
+	i=`expr $i + 1`
+done	
+
+---------------------------------------------------------------------------------------------
+24.reverseOfString
+
+[subbu@localhost shell_scripting]$ echo Hello | rev
+olleH
+
+
+echo "enter a string:"
+read str
+l=`echo $str | wc -c`
+l=`expr $l - 1`
+while [ $l -gt 0 ]
+do
+	ch=`echo $str | cut -c $l`
+	temp=$temp$ch
+	l=`expr $l - 1`
+done
+echo "reverse of $str is:$temp"
+
+-----------------------------------------------------------------------------------------------
+25.while1
+
+
+ans="y"
+while [ $ans = "y" ]
+do
+	echo "enter a filename to open:\c"
+	read fn
+	if [ -e $fn -a -f $fn ]
+	then
+		cat $fn
+	else
+		echo "no such file"
+	fi
+	echo "do u  want to open one more file[y/n]:\c"
+	read ans
+done
+
+--------------------------------------------------------------------------------------------
+26.while2
+
+
+while true
+do
+	echo "enter a file name to open:\c"
+	read fn
+	
+	if [ -e $fn -a -f $fn ]
+	then
+		cat $fn
+		break
+	else
+		continue
+	fi
+done
+
+--------------------------------------------------------------------------------------------
+27.sleep
+
+
+while true
+do
+	clear
+	tput cup 5 8
+	echo "subbu"
+	sleep 2
+	clear
+	tput cup 5 8
+	echo "dhoni"
+	sleep 2
+	clear
+	tput cup 5 8
+	echo "allu arjun"
+	sleep 2
+done
+
+----------------------------------------------------------------------------------------------
+28.noOfUsersAdd
+
+###to execute this program you must be in root user.
+
+echo "enter no of users to be created:\c"
+read n 
+i=1
+while [ $i -le $n ]
+do
+	x=subbu$i
+	useradd $x
+	i=`expr $i + 1`
+done
+
+
+
+#for delete user
+
+while true
+do
+	echo "Enter username:"
+	read n
+	useradd $n
+	echo "User $n has been added"
+	
+	echo "Do you want to create one more user?(y/n)"
+	read in
+	if [ $in -eq n ]
+	then
+		exit
+	else
+		continue
+	fi
+done
+
+--------------------------------------------------------------------------------------------
+29.for
+
+
+for i in 1 3 10 47
+do
+	echo "some message - $i"
+done
+
+-----------------------------------------------------------------------------------------
+30.for1
+
+
+a=10
+b=20
+c=30
+for i in a b c
+do
+	echo $i
+done
+
+
+====
+
+[root@localhost jun2017]# cat users.txt
+user1
+user2
+subbu
+root
+[root@localhost jun2017]# cat for1.sh
+for i in `cat users.txt`
+do
+        if grep -w $i /etc/passwd > /dev/null
+        then
+                echo $i user is exist
+        else
+                echo $i user is not exist
+        fi
+done
+
+----------------------------------------------------------------------------------------
+31.for2
+
+
+a=10
+b=20
+c=30
+for i in $a $b $c
+do
+	echo $i
+done
+
+
+for i in `cat input.txt`
+do
+        echo $i | sed 's/apple/facebook/g'
+#       echo " inside the loop - $i"
+done
+
+----------------------------------------------------------------------------------------
+32.for3
+
+
+for i in *
+do
+	if [ -d $i ]
+	then
+		echo $i
+	fi
+done
+
+
+for i in *
+do
+	if [ -f $i ]
+	then
+		echo $i
+	fi
+done
+
+----------------------------------------------------------------------------------------
+33.for4
+
+
+for i in *
+do
+if [ ! -s $i ]
+then
+echo $i
+fi
+done
+
+----------------------------------------------------------------------------------------
+34.for5
+
+
+for i in *
+do
+if [ -f$i -a -r$i -a -x$i ]
+then
+echo $i
+fi
+done
+
+----------------------------------------------------------------------------------------
+35.for6
+
+
+for i in `cat emp`
+do
+j=`echo $i | cut -f 3`
+if [ $j -ge 50000 ]
+then
+echo $i
+fi
+done
+
+----------------------------------------------------------------------------------------
+36.for7
+
+
+for i in `cat emp`
+do
+j=`echo $i | cut -f 3`
+k=`echo $i | cut -f 4`
+if [ $j -ge 50000 -a $k -eq 10 ]
+then
+echo $i
+fi
+done
+
+------------------------------------------------------------------------------------------
+37. multiplicationtable 
+
+echo "Enter a number:"
+read num
+i=1
+while [ $i -le 10 ]
+do
+        echo "$num * $i = `expr $num \* $i`"
+        i=`expr $i + 1`
+done
+
+-----------------------------------------------------------------------------------------
+
+Arrays
+
+#!/bin/bash
+a=1
+myarray=(red yellow blue green orange)
+for a in "${myarray[@]}"
+do 
+	echo "$a"
+done | sort
+
+
+
+SERVER[venky] 433: ./test.sh
+blue
+green
+orange
+red
+yellow
+SERVER[venky] 434:
+
+-------------------------------------------------------
+
+function:
+hello()
+{
+        echo "hello $1"
+}
+
+
+hello subbu
+hello ramu
+
+
+
+[subbu@localhost shellscripting]$ cat cal.sh
+add()
+{
+        echo `expr $1 + $2`
+}
+
+mul()
+{
+        echo `expr $1 \* $2`
+}
+
+del()
+{
+
+        echo `expr $1 - $2`
+}
+
+echo "value1:"
+read v1
+echo "Value2:"
+read v2
+
+echo "Enter which funcatio you want to call? (add/mul/del)"
+read fname
+
+$fname $v1 $v2
+
+-------------------------------------------------------
+
+#!/bin/bash
+array=(red yellow blue green orange)
+default=yellow
+echo -n "$default"
+for a in "${array[@]//$default/}"
+do
+	echo $a
+done | sort 
+
+
+SERVER[venky] 464: ./test.sh
+yellow
+blue
+green
+orange
+red
+SERVER[venky] 465:
+
+
+unset array --> To delete entire array
+
+#!/bin/bash
+array=(red yellow blue green orange)
+default=yellow
+echo -n "$default"
+(for a in "${array[@]//$default/}"; do echo $a; done | sort) 
+SERVER[venky] 445: ./test.sh
+yellow
+blue
+green
+orange
+red
+SERVER[venky] 446:
+------------------------------------------------------------------------------------------
+scp
+
+scp source_file_name username@destination_host:destination_folder
+
+The “-p” parameter will help you on this. An estimated time and the connection speed will appear on the screen.
+
+$ scp -p Label.pdf mrarianto@202.x.x.x:.
+Sample Output
+-------------
+mrarianto@202.x.x.x's password:
+Label.pdf 100% 3672KB 126.6KB/s 00:29
+
+The “-C” parameter will compress your files on the go. The unique thing is the compression is only happen in the network. 
+When the file is arrived to the destination server, it will returning into the original size as before the compression happen.
+
+-r parameter --> Sometimes we need to copy directory and all files / directories inside it. It will be better if we can do it in 1 command. 
+
+------------------------------------------------------------------------------------------
+rsync
+
+* It efficiently copies and sync files to or from a remote system.
+* Supports copying links, devices, owners, groups and permissions.
+* It’s faster than scp (Secure Copy) because rsync uses remote-update protocol which allows to transfer just the differences between two sets of files. 
+  First time, it copies the whole content of a file or a directory from source to destination but from next time, 
+  it copies only the changed blocks and bytes to the destination.
+* Rsync consumes less bandwidth as it uses compression and decompression method while sending and receiving data both ends.
+
+Some common options used with rsync commands
+    -v : verbose
+    -r : copies data recursively (but don’t preserve timestamps and permission while transferring data
+    -a : archive mode, archive mode allows copying files recursively and it also preserves symbolic links, file permissions, user & group ownerships and timestamps
+    -z : compress file data
+    -h : human-readable, output numbers in a human-readable format
+
+[root@tecmint]# rsync -zvh backup.tar /tmp/backups/
+
+[root@tecmint]# rsync -avzh /root/rpmpkgs /tmp/backups/
+
+Copy a Directory from Local Server to a Remote Server: 	
+rsync -avz rpmpkgs/ root@192.168.0.101:/home/
+
+------------------------------------------------------------------------------------------

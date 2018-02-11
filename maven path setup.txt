@@ -1,0 +1,47 @@
+Maven path setup
+
+CREATE NEW VARIABLE
+
+VARIABLE NAME:M2_HOME
+VARIABLE VALUE:C:\Maven\apache-maven-3.3.9
+
+
+CREATE ANOTHER VARIABLE
+
+VARIABLE NAME:M2
+VARIABLE VALUE: %M2_HOME%\bin
+----------------------------------------
+
+Java path setup 
+
+VARIABLE NAME:JAVA_HOME
+VARIABLE VALUE:C:\Program Files\Java\jdk1.8.0_161
+
+
+CREATE ANOTHER VARIABLE
+
+VARIABLE NAME:JAVA_HOME
+VARIABLE VALUE: %JAVA_HOME%\bin
+
+path= %JAVA_HOME%\bin
+
+
+--------------------------------------------
+
+M2_HOME = C:\Maven\apache-maven-3.3.9
+M2 = %M2_HOME%\bin
+path = %M2_HOME%\bin
+
+..............................................
+C:\Users\newgr>java -version
+Picked up JAVA_TOOL_OPTIONS: -agentlib:jvmhook
+java version "1.8.0_161"
+Java(TM) SE Runtime Environment (build 1.8.0_161-b12)
+Java HotSpot(TM) Client VM (build 25.161-b12, mixed mode, sharing)
+
+
+
+Deleted System variables(need to recheck)
+
+var name:JAVA_TOOL_OPTIONS
+var value:-agentlib:jvmhook

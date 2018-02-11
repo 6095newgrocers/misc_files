@@ -1,0 +1,12 @@
+
+New variable 
+variable Name:JAVA_HOME
+variable value:C:\Program Files\Java\jdk1.8.0_161
+
+Path:%JAVA_HOME%\bin
+
+
+buckys tutorials
+
+JAVA_HOME
+C:\Program Files\Java\jdk1.8.0_161\bin

@@ -1,0 +1,4 @@
+Deleted system vars
+
+IBM_JAVA_OPTIONS
+-Xrunjvmhook -Xbootclasspath/a:C:\Program Files\HP\QUICKT~1\bin\JAVA_S~1\classes

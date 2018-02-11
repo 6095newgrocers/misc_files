@@ -1,0 +1,2 @@
+robocopy.exe "c:\source\transfer" "e:\destin\New" /S /Move
+mkdir "c:\source\transfer"

@@ -1,0 +1,18 @@
+$?  -> 0    		(recent command was successfully executed)
+$?  -> 1 or other value (recent command was not executed)
+			(0 and 1 are called exit status)
+		
+
+same with if statement
+
+if mv $source $target (is successful then it will execute the rest)
+if [ -f $fname]	    ()
+
+
+Example:
+echo "Enter source and target file names"
+read source target
+	if mv $source $target
+	then
+	echo "Your file has been successfully renamed"
+fi
